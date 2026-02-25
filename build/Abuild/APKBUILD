@@ -1,0 +1,38 @@
+# Alpine-Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Maintainer: Aaron Bassett <abassett@qnx.com>
+pkgname=libassuan
+pkgver=2.5.7
+pkgrel=0
+pkgdesc="IPC library used by some GnuPG related software"
+url="https://www.gnupg.org/software/libassuan/index.html"
+arch="all"
+license="LGPL-2.1-or-later"
+depends="libgpg-error qnx-io-sock"
+makedepends="libgpg-error-dev qnx-io-sock-dev"
+subpackages="$pkgname-static $pkgname-dev $pkgname-doc"
+source="
+    https://www.gnupg.org/ftp/gcrypt/libassuan/libassuan-$pkgver.tar.bz2
+    0001-qnx-include-sys-select.patch
+"
+
+build() {
+    ./configure \
+        --build=$CBUILD \
+        --host=$CHOST \
+        --prefix=/usr \
+        --enable-static
+    make
+}
+
+check() {
+    make check
+}
+
+package() {
+    make DESTDIR="$pkgdir" install
+}
+
+sha512sums="
+ca33bd0325bbebccb63b6a84cc0aa5c85b25c6275a68df83aeb3f3729b2cd38220198a941c3479bd461f16b7ddb6b558c0664697ca3153c7fb430544303d773f  libassuan-2.5.7.tar.bz2
+6f016eba76669047ca26fb368d8e2d330b883ab6f22b2b6ade95d4a95ab06a51028d36ee501a6154ff4aaccdb28c79a7afc8effeac0a67404347541cf18bbb39  0001-qnx-include-sys-select.patch
+"

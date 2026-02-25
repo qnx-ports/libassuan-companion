@@ -1,0 +1,4 @@
+abuild
+qnx-packaging
+bzip2-dev
+

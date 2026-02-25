@@ -1,0 +1,12 @@
+--- libassuan-2.5.7-base/src/assuan-socket.c	2024-03-06 13:53:49.000000000 +0000
++++ libassuan-2.5.7/src/assuan-socket.c	2024-03-06 13:53:49.000000000 +0000
+@@ -37,6 +37,9 @@
+ # include <sys/socket.h>
+ # include <netinet/in.h>
+ # include <arpa/inet.h>
++# ifdef __QNX__
++#  include <sys/select.h>
++# endif
+ #endif
+ #include <errno.h>
+ #ifdef HAVE_SYS_STAT_H
